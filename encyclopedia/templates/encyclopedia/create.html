@@ -1,0 +1,36 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}{{ mode }}{% endblock %}
+
+
+{% block style %}
+<style>
+    input[name="title"]{
+        margin-right: 1400px;
+    }
+    input[name="content"]{
+        margin-right: 100000000px;;
+    }
+    input[type="submit"]{
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<h1> {{mode}} </h1>
+{% if mode == 'Create a New Page' or mode == 'This Page already exists' %}
+    <form action="{% url 'wiki:create' 'created' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% elif mode == 'Edit a Page' or mode == 'This Page does not exist' %}
+    <form action="{% url 'wiki:create' 'edited' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endif %}
+
+{% endblock %}
